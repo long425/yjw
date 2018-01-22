@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>映教网后台管理系统</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="css/questions-manage.css" />
+  </head>
+
+  <body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-header">
+        <div class="layui-logo">映教网智慧教育</div>
+        <!-- 顶部菜单 -->
+        <ul class="layui-nav layui-layout-left">
+          <li class="layui-nav-item layui-this">
+            <a href="javascript:;">测评系统</a>
+          </li>
+        </ul>
+        <!--个人信息-->
+        <ul class="layui-nav layui-layout-right">
+          <li class="layui-nav-item">
+            <a href="javascript:;">
+              <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+              <span>祥龙主管理员</span>
+            </a>
+            <dl class="layui-nav-child">
+              <dd>
+                <a href="">基本资料</a>
+              </dd>
+              <dd>
+                <a href="">安全设置</a>
+              </dd>
+              <dd>
+                <a href="">退出</a>
+              </dd>
+            </dl>
+          </li>
+          <!--<li class="layui-nav-item"><a href="">退了</a></li>-->
+        </ul>
+      </div>
+
+      <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+          <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+          <ul class="layui-nav layui-nav-tree" lay-filter="test">
+          	<li class="layui-nav-item layui-nav-itemed" data-type="knowledge-manage">
+              <a class="" href="javascript:;">知识点管理</a>
+            </li>
+            <li class="layui-nav-item layui-nav-itemed layui-this" data-type="questions-manage">
+              <a class="" href="javascript:;">题库资源</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="layui-body">
+        <!-- 内容主体区域 -->
+
+      </div>
+
+      <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © CopyRight&nbsp;2016&nbsp;&nbsp;映教网&nbsp;版权所有
+      </div>
+    </div>
+    <!--编辑试题-->
+    <script src="../layui/layui.js"></script>
+    <script src="../lib/js/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/question-manage.js"></script>
+    <script>
+//    $(".layui-body").load('../commonUI/tkData/template/questions-manage.html');
+        //创建分页器--按知识点
+        layui.use('laypage', function() {
+        var laypage = layui.laypage;
+        //执行一个laypage实例
+        laypage.render({
+          limit: 10,
+          elem: 'paging-point', //这里是 ID，不用加#号
+          count: 500 //数据总数，从服务端得到
+        });
+      });
+      //创建分页器--按章节
+        layui.use('laypage', function() {
+        var laypage = layui.laypage;
+        //执行一个laypage实例
+        laypage.render({
+          limit: 10,
+          elem: 'paging-chapter', //这里是 ID，不用加#号
+          count: 500 //数据总数，从服务端得到
+        });
+      });
+    </script>
+  </body>
+
+</html>

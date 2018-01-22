@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>映教网后台管理系统</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../lib/css/zTreeStyle.css" />
+    <link rel="stylesheet" href="css/knowledge-manage.css" />
+    <style>
+      .ztree li span.button.add {
+        margin-left: 2px;
+        margin-right: -1px;
+        background-position: -144px 0;
+        vertical-align: top;
+        *vertical-align: middle
+      }
+      .question-edit-item {
+      	width: 100%;
+      	margin-bottom: 20px;
+      }
+      .question-edit-main {
+      	border: solid 1px #e7e7e7;
+      	padding: 3px 15px;
+      	box-shadow: 5px 5px 5px 0px #999;
+      }
+    </style>
+  </head>
+
+  <body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-header">
+        <div class="layui-logo">映教网智慧教育</div>
+        <!-- 顶部菜单 -->
+        <ul class="layui-nav layui-layout-left">
+          <li class="layui-nav-item layui-this">
+            <a href="javascript:;">测评系统</a>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">商品管理</a>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">用户</a>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">其它系统</a>
+            <!--<dl class="layui-nav-child">
+          <dd><a href="javascript:;">邮件管理</a></dd>
+          <dd><a href="javascript:;">消息管理</a></dd>
+          <dd><a href="javascript:;">授权管理</a></dd>
+        </dl>-->
+          </li>
+        </ul>
+        <!--个人信息-->
+        <ul class="layui-nav layui-layout-right">
+          <li class="layui-nav-item">
+            <a href="javascript:;">
+              <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+              <span>祥龙主管理员</span>
+            </a>
+            <dl class="layui-nav-child">
+              <dd>
+                <a href="">基本资料</a>
+              </dd>
+              <dd>
+                <a href="">安全设置</a>
+              </dd>
+              <dd>
+                <a href="">退出</a>
+              </dd>
+            </dl>
+          </li>
+          <!--<li class="layui-nav-item"><a href="">退了</a></li>-->
+        </ul>
+      </div>
+
+      <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+          <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <li class="layui-nav-item layui-nav-itemed layui-this">
+              <a class="" href="javascript:;">题库资源</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="layui-body">
+        <!-- 内容主体区域 -->
+      </div>
+
+      <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © CopyRight&nbsp;2016&nbsp;&nbsp;映教网&nbsp;版权所有
+      </div>
+    </div>
+    <!--编辑试题弹出层-->
+    <div id="edit-question" style="padding: 20px;">
+    	<!--试题题干-->
+      <div class="question-edit-item">
+      	<div class="question-edit-title">试题题干</div>
+      	<div class="question-edit-main question-edit-stem" contentEditable=true>买的是都是那么的是那么的设备科技</div>
+      	<input type="hidden" name="question-stem" value="题干"/>
+      </div>
+      <!--选项-->
+      <div class="question-edit-item">
+      	<div class="question-edit-title">选项</div>
+      	<div class="question-edit-main question-edit-stem" contentEditable=true>
+      		A.1 <br />B.1<br />C.11<br />
+      	</div>
+      </div>
+      <!--选项个数-->
+      <div class="question-edit-item">
+      	<div class="question-edit-title">选项个数</div>
+      	<div class="question-edit-main question-edit-stem">
+      		<input type="radio" id="selNum1" name="selNum"/>
+      		<label for="selNum1">1</label>
+      		<input type="radio" id="selNum2" name="selNum"/>
+      		<label for="selNum2">2</label>
+      		<input type="radio" id="selNum3" name="selNum" checked="checked"/>
+      		<label for="selNum3">3</label>
+      		<input type="radio" id="selNum4" name="selNum"/>
+      		<label for="selNum4">4</label>
+      	</div>
+      </div>
+      <!--答案-->
+      <div class="question-edit-item">
+      	<div  class="question-edit-title">答案</div>
+      	<div  class="question-edit-main question-edit-stem">
+      		<input type="radio" id="answer1" name="answerInp"/>
+      		<label for="selNum1">A</label>
+      		<input type="radio" id="answer2" name="answerInp"/>
+      		<label for="selNum2">B</label>
+      		<input type="radio" id="answer3" name="answerInp" checked="checked"/>
+      		<label for="selNum3">C</label>
+      	</div>
+      </div>
+      <!--解析-->
+      <div class="question-edit-item">
+      	<div class="question-edit-title">解析</div>
+      	<div class="question-edit-main question-edit-stem" contentEditable=true>25×4÷25×4按照从左到右的顺序计算出结果即可.解：25×4÷25×4=100÷25×4=4×4=16。</div>
+      </div>
+      <!--知识点-->
+      <div class="question-edit-item">
+      	<div class="question-edit-title">知识点</div>
+      	<div class="question-edit-main question-edit-stem" contentEditable=true>整数四则混合运算</div>
+      </div>
+      <!--难度-->
+      <div class="question-edit-item">
+      	<div class="question-edit-title">难度</div>
+      	<div class="question-edit-main question-edit-stem">
+      		<input type="radio" id="difficulty1" name="difficulty"/>
+      		<label for="difficulty1">困难</label>
+      		<input type="radio" id="difficulty2" name="difficulty"/>
+      		<label for="difficulty2">较难</label>
+      		<input type="radio" id="difficulty3" name="difficulty"/>
+      		<label for="difficulty3">适当</label>
+      		<input type="radio" id="difficulty4" name="difficulty"/>
+      		<label for="difficulty4">较易</label>
+      		<input type="radio" id="difficulty5" name="difficulty" checked="checked"/>
+      		<label for="difficulty5">容易</label>
+      	</div>
+      </div>
+      <!--题型-->
+      <div class="question-edit-item">
+      	<div class="question-edit-title">题型</div>
+      	<div class="question-edit-main question-edit-stem">
+      		<input type="radio" id="questionType1" name="questionType" checked="checked"/>
+      		<label for="questionType1">单选题</label>
+      		<input type="radio" id="questionType2" name="questionType"/>
+      		<label for="questionType2">多选题</label>
+      		<input type="radio" id="questionType3" name="questionType"/>
+      		<label for="questionType3">填空题</label>
+      		<input type="radio" id="questionType4" name="questionType"/>
+      		<label for="questionType4">计算题</label>
+      		<input type="radio" id="questionType5" name="questionType"/>
+      		<label for="questionType5">解答题</label>
+      	</div>
+      </div>
+    </div>
+    <script src="../lib/js/jquery.min.js"></script>
+    <script src="../layui/layui.js"></script>
+    <script src="../lib/js/jquery.ztree.core-3.5.js"></script>
+    <script src="../lib/js/jquery.ztree.excheck-3.5.js"></script>
+    <script src="../lib/js/jquery.ztree.exedit.js"></script>
+    <script src="../lib/js/layui-xtree.js"></script>
+    <script>
+      //JavaScript代码区域
+      layui.use('element', function() {
+        var element = layui.element;
+      });
+    </script>
+    <script src="js/knowledge-manage.js"></script>
+    <script>
+      layui.use('layer', function() {
+        var layer = layui.layer;
+        layer.open({
+          type: 1,
+          area:'70%',
+          content: $('#edit-question')
+        });
+      });
+    </script>
+  </body>

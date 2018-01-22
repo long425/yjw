@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title> ZTREE DEMO </title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!--<link rel="stylesheet" href="../layui/css/layui.css" />-->
+    <link rel="stylesheet" href="../lib/css/zTreeStyle.css" type="text/css">
+    <script src="../lib/js/jquery.min.js"></script>
+    <script src="../lib/js/jquery.ztree.all-3.5.js"></script>
+    <script src="../lib/js/jquery.ztree.core-3.5.js"></script>
+    <script src="../lib/js/jquery.ztree.excheck-3.5.js"></script>
+    <script LANGUAGE="JavaScript">
+      //右键单击回调函数
+      function OnRightClick(event, treeId, treeNode) {
+        $("#treeZo").hide();
+        if(!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
+          zTreeObj.cancelSelectedNode();
+          showRMenu("root", event.clientX, event.clientY); //根据鼠标位置显示右键操作面板
+        } else if(treeNode && !treeNode.noR) {
+          zTreeObj.selectNode(treeNode);
+          showRMenu("node", event.clientX, event.clientY);
+        }
+        $("#treeZo").show();
+      }
+      //根据节点类型，控制右键操作菜单哪些可用哪些不可用
+      function showRMenu(type, x, y) {
+        var rMebu = $("#rMenu");
+        $("#rMenu ul").show();
+        if(type == "root") {
+          $("#m_del").hide();
+          $("#m_edit").hide();
+          $("#m_left").hide();
+          $("#m_right").hide();
+          $("#m_up").hide();
+          $("#m_down").hide();
+          $("#m_add").addClass('mboder');
+        } else {
+          $("#m_del").show();
+          $("#m_edit").show();
+          $("#m_left").show();
+          $("#m_right").show();
+          $("#m_up").show();
+          $("#m_down").show();
+          $("#m_add").removeClass('mboder');
+        }
+        console.log(rMenu)
+        $("#rMenu").css("top", y + "px");
+        $("#rMenu").css("left", x + "px");
+        $("#rMenu").css("visibility", "visible");
+        // rMenu.css({ "top": y + "px", "left": x + "px", "visibility": "visible" });
+        $("body").bind("mousedown", onBodyMouseDown);
+      }
+      //以藏右键面板
+      function hideRMenu() {
+        if(rMenu) rMenu.css({
+          "visibility": "hidden"
+        });
+        $("body").unbind("mousedown", onBodyMouseDown);
+      }
+      //单击页面其他位置 隐藏右键面板
+      function onBodyMouseDown(event) {
+        if(!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
+          rMenu.css({
+            "visibility": "hidden"
+          });
+        }
+      };
+
+      function onCheck() {
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo"); //获取树对象
+        var nodes = treeObj.getChangeCheckedNodes(); //获取勾选状态改变的节点
+        var designIds = [];
+        var status = 0; //定义初始勾选状态为未勾选
+        if(nodes[0].checked)
+          status = 1; //如果状态改变节点为勾选状态，说明当前操作是从未勾选变为已勾选。
+        $.each(nodes, function(i, item) {
+          designIds.push(item.id); //将状态改变的节点id输出到数组
+          item.checkedOld = item.checked; //这句话很关键，将节点的初始状态置为当前状态。否则每次勾选操作获取状态改变节点时只会跟树初始化的状态相比较。
+        })
+        $.ajax({
+          type: "Post",
+          url: "/Design/GetRelationComponentIdsByDesigns",
+          data: {
+            "designIds": designIds
+          },
+          success: function(data) {
+            RealBimOcx.BatchAddSubClrInfoBegin();
+            $.each(data.result, function(i, item) {
+              if(status == 1) //这里根据发生改变的节点是勾选还是为勾选进行相关逻辑操作。
+                RealBimOcx.AddSubClrInfo(item, 255, 255, 0);
+              else
+                RealBimOcx.AddSubClrInfo(item, 0, 255, 0);
+              if(i % 100 == 0) {
+                RealBimOcx.BatchAddSubClrInfoEnd();
+                RealBimOcx.BatchAddSubClrInfoBegin();
+              }
+
+            })
+            RealBimOcx.BatchAddSubClrInfoEnd();
+
+          }
+        })
+      };
+      var zTreeObj;
+      //var setting = {};  // zTree 的参数配置，后面详解
+      var setting = {
+        view: {
+          selectedMulti: true, //设置是否能够同时选中多个节点
+          showIcon: true, //设置是否显示节点图标
+          showLine: false, //设置是否显示节点与节点之间的连线
+          showTitle: true, //设置是否显示节点的title提示信息
+        },
+        data: {
+          simpleData: {
+            enable: false, //设置是否启用简单数据格式（zTree支持标准数据格式跟简单数据格式，上面例子中是标准数据格式）
+            idKey: "id", //设置启用简单数据格式时id对应的属性名称
+            pidKey: "pId" //设置启用简单数据格式时parentId对应的属性名称,ztree根据id及pid层级关系构建树结构
+          }
+        },
+        check: {
+          enable: true //设置是否显示checkbox复选框
+        },
+        callback: {
+          //onClick: onClick,    //定义节点单击事件回调函数
+          onRightClick: OnRightClick, //定义节点右键单击事件回调函数
+          //beforeRename: beforeRename, //定义节点重新编辑成功前回调函数，一般用于节点编辑时判断输入的节点名称是否合法
+          //onDblClick: onDblClick,  //定义节点双击事件回调函数
+          onCheck: onCheck //定义节点复选框选中或取消选中事件的回调函数
+        }
+      };
+      var zNodes = [ // zTree 的数据属性，此处使用标准json格式
+        {
+          name: "test1",
+          children: [{
+            name: "test1_1"
+          }, {
+            name: "test1_2"
+          }]
+        },
+        {
+          name: "test2",
+          children: [{
+            name: "test2_1"
+          }, {
+            name: "test2_2"
+          }]
+        }
+      ];
+      $(document).ready(function() {
+        zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes); //初始化zTree，三个参数一次分别是容器(zTree 的容器 className 别忘了设置为 "ztree")、参数配置、数据源
+      });
+    </script>
+  </head>
+
+  <body>
+    <div>
+      <ul id="treeDemo" class="ztree"></ul>
+      <div id="rMenu" style="z-index:100;visibility: hidden;">
+          <ul>
+            <li id="m_add" onclick="addTreeNode();">新增节点</li>
+            <li id="m_del" onclick="removeTreeNode();">删除节点</li>
+            <li id="m_edit" onclick="editTreeNode();" style="border-bottom:1px solid #cecece">编辑节点</li>
+          </ul>
+        </div>
+    </div>
+  </body>
+
+</html>
+<script>
+</script>
+<!--右键点击-->
+<script>
+</script>
+<!--增加节点-->
+<script>
+  //增加节点
+  function addTreeNode() {
+    hideRMenu();
+    var name = new Date().getTime(); //利用时间戳生成节点名称，保证节点名称唯一
+    var newNode = {
+      name: name
+    };
+    if(zTree.getSelectedNodes()[0]) {
+      newNode.checked = zTree.getSelectedNodes()[0].checked;
+      newNode.pid = zTree.getSelectedNodes()[0].id;
+      zTree.addNodes(zTree.getSelectedNodes()[0], newNode);
+    } else {
+      zTree.addNodes(null, newNode);
+    }
+    var node = zTree.getNodeByParam("name", name, null); //得到新增加的节点
+    zTree.selectNode(node); //选中新增加的节点
+    zTree.editName(node); //让新增加的节点处于编辑状态
+  }
+</script>
+<!--编辑节点-->
+<script>
+  function editTreeNode() {
+    var nodes = zTree.getSelectedNodes(); //得到选中节点集合
+    if(nodes && nodes.length > 0) {
+      var parent = nodes[0].getParentNode(); //得到选中节点的父节点
+      if(parent) {
+        nodes[0].pid = parent.id; //如果选中节点父节点存在，将当前结点的pid属性值设置为父节点的id
+      }
+      zTree.editName(nodes[0]); //让选中节点处于编辑状态
+    }
+    hideRMenu(); //隐藏右键面板
+  };
+</script>

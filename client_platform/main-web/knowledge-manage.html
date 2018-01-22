@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>映教网后台管理系统</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/global.css" />
+    <link rel="stylesheet" href="../lib/css/zTreeStyle.css" />
+    <link rel="stylesheet" href="css/knowledge-manage.css" />
+    <style>
+      .ztree li span.button.add {
+        margin-left: 2px;
+        margin-right: -1px;
+        background-position: -144px 0;
+        vertical-align: top;
+        *vertical-align: middle
+      }
+      .treeMenu {
+        width: 150px;
+        background-color: #fff;
+        border: solid 1px #e7e7e7;
+        text-align: center;
+      }
+      .treeMenu li {
+        padding: 5px 15px;
+      }
+      /*.checkTreeNode {
+        background-color: #c4ddf9;
+      }*/
+      #treeDemo li a {
+      	width: 100%;
+      }
+      .layui-form-label {
+      	width: 30%;
+      }
+      .layui-col-lg6 {
+      	width: 60%!important;
+      }
+    </style>
+  </head>
+
+  <body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-header">
+        <div class="layui-logo">映教网智慧教育</div>
+        <!-- 顶部菜单 -->
+        <ul class="layui-nav layui-layout-left">
+          <li class="layui-nav-item layui-this">
+            <a href="javascript:;">测评系统</a>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">商品管理</a>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">用户</a>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">其它系统</a>
+            <!--<dl class="layui-nav-child">
+          <dd><a href="javascript:;">邮件管理</a></dd>
+          <dd><a href="javascript:;">消息管理</a></dd>
+          <dd><a href="javascript:;">授权管理</a></dd>
+        </dl>-->
+          </li>
+        </ul>
+        <!--个人信息-->
+        <ul class="layui-nav layui-layout-right">
+          <li class="layui-nav-item">
+            <a href="javascript:;">
+              <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+              <span>祥龙主管理员</span>
+            </a>
+            <dl class="layui-nav-child">
+              <dd>
+                <a href="">基本资料</a>
+              </dd>
+              <dd>
+                <a href="">安全设置</a>
+              </dd>
+              <dd>
+                <a href="">退出</a>
+              </dd>
+            </dl>
+          </li>
+          <!--<li class="layui-nav-item"><a href="">退了</a></li>-->
+        </ul>
+      </div>
+
+      <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+          <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <li class="layui-nav-item layui-nav-itemed layui-this">
+              <a class="" href="javascript:;">题库资源</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="template-knowledge-manage" style="height: 100%;">
+          <div class="template-top-nav">
+            <div class="page-nav float_left">教学管理 》 知识点管理</div>
+            <div class="import-btn float_right">导入</div>
+            <div class="clear"></div>
+          </div>
+          <div class="qunit-filter">
+            <div class="screen-list">
+              <div class="screen-name float_left">学段 ></div>
+              <div class="screen-item-wrap float_left screen-period-wrap">
+                <!--<div class="screen-item study-period check" data-period="1">小学</div>
+                <div class="screen-item study-period" data-period="2">初中</div>
+                <div class="screen-item study-period" data-period="3">高中</div>-->
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="screen-list">
+              <div class="screen-name float_left">学科 ></div>
+              <div class="screen-item-wrap float_left screen-subject-wrap"></div>
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div class="qunit-main" style="height: calc(100% - 157px);">
+            <div class="catalog-tree-wrap float_left">
+              <div class="catalog-tree-title">知识点目录</div>
+              <div class="zTreeDemoBackground left">
+                <ul id="treeDemo" class="ztree"></ul>
+              </div>
+
+            </div>
+            <div class="knowledge-manage-region float_right">
+
+                <form class="layui-form" action="" id="showTreeForm" style="width: 100%;">
+                	<div class="layui-form-item layui-col-lg9">
+                    <label class="layui-form-label layui-col-lg3">父级</label>
+                    <div class="layui-input-inline layui-col-lg2">
+                      <input type="text" name="pname" id="treePNodeName" readonly="readonly" class="layui-input" onClick="selectParentMenu()">
+                    	<input type="hidden" name="pid" id="treePNodeId" class="layui-input"/>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux clearParent">清空父级</div>
+                  </div>
+                  <div class="layui-form-item layui-col-lg9">
+                    <label class="layui-form-label layui-col-lg3"></label>
+                    <div class="layui-input-inline layui-col-lg6">说明：清空父级后做为顶级菜单存在</div>
+                  </div>
+                  <div class="layui-form-item layui-col-lg9">
+                    <label class="layui-form-label layui-col-lg3">名称*</label>
+                    <div class="layui-input-inline layui-col-lg6">
+                      <input type="text" name="name" required id="treeNodeName" lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+                      <input type="hidden" name="id" id="treeNodeId" class="layui-input"/>
+                    </div>
+                  </div>
+                  
+                  <div class="layui-form-item layui-col-lg9">
+                    <label class="layui-form-label layui-col-lg3">排序</label>
+                    <div class="layui-input-inline layui-col-lg6">
+                      <input type="text" name="sortno" required id="treeNodeOrder" lay-verify="required" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  <div class="layui-form-item layui-col-lg9">
+                    <label class="layui-form-label layui-col-lg3">是否可用</label>
+                    <div class="layui-input-inline">
+                      <select name="isactive" lay-verify="required" id="treeNodeIsactive">
+                        <!--<option value=""></option>-->
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="layui-form-item layui-form-text layui-col-lg9">
+                    <label class="layui-form-label layui-col-lg3">备注</label>
+                    <div class="layui-input-inline layui-col-lg6">
+                      <textarea name="memo" placeholder="请输入内容" class="layui-textarea" id="treeNodeMemo"></textarea>
+                    </div>
+                  </div>
+                  <div class="layui-form-item layui-form-text layui-col-lg9">
+                    <label class="layui-form-label layui-col-lg3"></label>
+                    <div class="layui-input-inline layui-col-lg6">
+                      <button class="layui-btn" lay-submit lay-filter="showTreeForm">保存</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © CopyRight&nbsp;2016&nbsp;&nbsp;映教网&nbsp;版权所有
+      </div>
+    </div>
+    <div id="selectParentMenuWrap">
+    	<ul id="treeMenu" class="ztree"></ul>
+    </div>
+    <script src="../lib/js/jquery.min.js"></script>
+    <script src="../layui/layui.js"></script>
+    <script src="../lib/js/jquery.ztree.core-3.5.js"></script>
+    <script src="../lib/js/jquery.ztree.excheck-3.5.js"></script>
+    <script src="../lib/js/jquery.ztree.exedit.js"></script>
+    <script src="../lib/js/layui-xtree.js"></script>
+    <script>
+      //JavaScript代码区域
+      layui.use('element', function() {
+        var element = layui.element;
+      });
+    </script>
+    <script src="js/knowledge-manage.js"></script>
+    <script>
+      //    layui.use('laypage', function() {
+      //      var laypage = layui.laypage;
+      //
+      //      //执行一个laypage实例
+      //      laypage.render({
+      //        elem: 'paging', //注意，这里的 test1 是 ID，不用加 # 号
+      //        count: 50 //数据总数，从服务端得到
+      //      });
+      //    });
+    </script>
+  </body>

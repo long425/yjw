@@ -1,0 +1,276 @@
+<!--题库管理--按知识点-->
+<div class="template-questions-manage" style="height: 100%;">
+  <div class="question-point-upper-wrap">
+    <div class="calalog-title-wrap float_left">
+    	<div style="display: inline-block;" class="tab-item on">
+    		<input type="radio" name="questions" id="questions1" value="1" checked/>
+      	<label for="questions">按知识点</label>
+    	</div>
+      <div style="display: inline-block;" class="tab-item">
+      	<input type="radio" name="questions" id="questions2" value="2" style="margin-left: 15px;" />
+      	<label for="questions">按章节</label>
+      </div>
+      
+      <!--<div class="according-choice according-point check float_left">按知识点</div>
+      <div class="according-choice according-chapter float_left">按章节</div>-->
+    </div>
+    <div class="upper-title-wrap float_right">
+      <div class="float_left">测频系统 》 题库管理</div>
+      <div class="favorite-btn float_right">收藏夹(0)</div>
+      <div class="add-btn float_right">添加</div>
+      <div class="import-btn float_right">导入</div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="question-point-below-wrap">
+  	<!--按知识点查看试题-->
+    <div class="pcitem on" data-type="point">
+      <div class="calalog-main-wrap float_left">
+        <div class="knowledge-tree-title">知识点目录</div>
+        <ul id="knowledge-tree-point"></ul>
+      </div>
+      <div class="below-main-wrap float_right">
+        <div class="screen-term">
+          <div class="screen-item screen-period">
+            <span class="screen-title">学段 ></span>
+            <span class="screen-list check">小学</span>
+            <span class="screen-list">初中</span>
+            <span class="screen-list">高中</span>
+          </div>
+          <div class="screen-item screen-course">
+            <span class="screen-title">学科 ></span>
+            <span class="screen-list check">全部</span>
+            <span class="screen-list">语文</span>
+            <span class="screen-list">数学</span>
+            <span class="screen-list">英语</span>
+          </div>
+          <div class="screen-item screen-type">
+            <span class="screen-title">题型 ></span>
+            <span class="screen-list check">全部</span>
+            <span class="screen-list">单选题</span>
+            <span class="screen-list">多选题</span>
+            <span class="screen-list">填空题</span>
+            <span class="screen-list">判断题</span>
+            <span class="screen-list">计算题</span>
+            <span class="screen-list">解答题</span>
+            <span class="screen-list">完形填空</span>
+            <span class="screen-list">阅读理解</span>
+          </div>
+          <div class="screen-item screen-difficulty">
+            <span class="screen-title">难度 ></span>
+            <span class="screen-list check">全部</span>
+            <span class="screen-list">难</span>
+            <span class="screen-list">偏难</span>
+            <span class="screen-list">适中</span>
+            <span class="screen-list">偏易</span>
+            <span class="screen-list">容易</span>
+          </div>
+        </div>
+        <div class="sort-term">
+          <span class="question-total">共<span class="redColor">19384</span>道题</span>
+          <span class="order-term blueGreen">综合排序</span>
+          <span class="order-term blueGreen">使用次数</span>
+          <span class="order-term blueGreen">得分率</span>
+          <span class="order-term blueGreen">更新时间</span>
+        </div>
+        <div class="question-list-wrap">
+          <div class="question-item-wrap">
+            <div class="question-item-upper">
+              <span class="question-order">1</span> 【知识点】
+              <span class="question-analyse question-analyse-point">整数，小数复合应用题</span> 【题型】
+              <span class="question-analyse question-analyse-type">单选题</span> 【难度】
+              <span class="question-analyse question-analyse-difficulty">一般</span>
+            </div>
+            <div class="question-item-main">
+              <div class="the-question">25×4÷25×4=（　　）</div>
+              <div>
+                <span class="question-option">A．1 </span>
+                <span class="question-option">B．0</span>
+                <span class="question-option">C．16 </span>
+              </div>
+            </div>
+            <div class="question-item-below">
+              <div class="question-use-wrap float_left">
+                录入人：<span class="question-use-item question-user-teacher blueGreen">林静怡老师</span> 使用次数：
+                <span class="question-use-item question-user-degree blueGreen">1234次</span> 得分率：
+                <span class="question-use-item question-user-rate blueGreen">60%</span>
+              </div>
+              <div class="question-operation-wrap float_right">
+                <div class="question-operation-item answer-test">
+                  <img src="img/analysisImg.png" alt="" />
+                  <span>答案和解析</span>
+                </div>
+                <div class="question-operation-item edit-test">
+                  <img src="img/editImg.png" alt="" />
+                  <span>编辑</span>
+                </div>
+                <div class="question-operation-item delete-test">
+                  <img src="img/deleteImg.png" alt="" />
+                  <span>删除</span>
+                </div>
+                <div class="question-operation-item collect-test">
+                  <img src="img/collect.png" alt="" />
+                  <span>收藏</span>
+                </div>
+              </div>
+            	<div class="clear"></div>
+            </div>
+            <!--答案与解析内容-->
+              <div class="answer-analysis-wrap">
+                <div class="answer-content-wrap">答案:<span class="answer-content">A</span></div>
+                <div class="analysis-content-wrap">解析:<span class="analysis-content">25×4÷25×4按照从左到右的顺序计算出结果即可.解：25×4÷25×4=100÷25×4=4×4=16。</span></span></div>
+              </div>
+          </div>
+        </div>
+
+        <div class="question-paging" id="paging-point"></div>
+      </div>
+    </div>
+    <!--按章节查看试题-->
+    <div class="pcitem" data-type="chapter">
+      <div class="calalog-main-wrap float_left">
+        <div class="knowledge-tree-title">章节目录</div>
+        <ul id="knowledge-tree-chapter"></ul>
+      </div>
+      <div class="below-main-wrap float_right">
+        <div class="screen-term">
+          <div class="screen-item screen-period">
+            <div class="screen-title-wrap float_left" style="width: 45px;"><span class="screen-title">学段></span></div>
+            <div class="screen-list-wrap float_left" style="width: calc(100% - 45px);">
+            	<span class="screen-list check">小学</span>
+            	<span class="screen-list">初中</span>
+            	<span class="screen-list">高中</span>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="screen-item screen-period">
+            <div class="screen-title-wrap float_left" style="width: 45px;"><span class="screen-title">版本></span></div>
+            <div class="screen-list-wrap float_left" style="width: calc(100% - 45px);">
+            	<span class="screen-list check">人教版</span>
+            	<span class="screen-list">北师大版</span>
+            	<span class="screen-list">苏教版</span>
+            	<span class="screen-list">沪教版</span>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="screen-item screen-period">
+            <div class="screen-title-wrap float_left" style="width: 45px;"><span class="screen-title">学科></span></div>
+            <div class="screen-list-wrap float_left" style="width: calc(100% - 45px);">
+            	<span class="screen-list check">数学</span>
+            	<span class="screen-list">语文</span>
+            	<span class="screen-list">英语</span>
+            	<span class="screen-list">综合</span>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="screen-item screen-course">
+            <div class="screen-title-wrap float_left" style="width: 45px;"><span class="screen-title">教材></span></div>
+            <div class="screen-list-wrap float_left" style="width: calc(100% - 45px);">
+            	<span class="screen-list check">一年级上</span>
+            	<span class="screen-list">一年级下</span>
+            	<span class="screen-list">二年级上</span>
+            	<span class="screen-list">二年级下</span>
+            	<span class="screen-list">三年级上</span>
+            	<span class="screen-list">三年级下</span>
+            	<span class="screen-list">四年级上</span>
+            	<span class="screen-list">四年级下</span>
+            	<span class="screen-list">五年级上</span>
+            	<span class="screen-list">五年级下</span>
+            	<span class="screen-list">六年级上</span>
+            	<span class="screen-list">六年级下</span>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="screen-item screen-type">
+            <div class="screen-title-wrap float_left" style="width: 45px;"><span class="screen-title">题型></span></div>
+            <div class="screen-list-wrap float_left" style="width: calc(100% - 45px);">
+            	<span class="screen-list check">全部</span>
+            	<span class="screen-list">单选题</span>
+            	<span class="screen-list">多选题</span>
+            	<span class="screen-list">填空题</span>
+            	<span class="screen-list">判断题</span>
+            	<span class="screen-list">计算题</span>
+            	<span class="screen-list">解答题</span>
+            	<span class="screen-list">完形填空</span>
+            	<span class="screen-list">阅读理解</span>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="screen-item screen-difficulty">
+            <div class="screen-title-wrap float_left" style="width: 45px;"><span class="screen-title">难度></span></div>
+            <div class="screen-list-wrap float_left" style="width: calc(100% - 45px);">
+            	<span class="screen-list check">全部</span>
+            	<span class="screen-list">难</span>
+            	<span class="screen-list">偏难</span>
+            	<span class="screen-list">适中</span>
+            	<span class="screen-list">偏易</span>
+            	<span class="screen-list">容易</span>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <div class="sort-term">
+          <span class="question-total">共<span class="redColor">19384</span>道题</span>
+          <span class="order-term blueGreen">综合排序</span>
+          <span class="order-term blueGreen">使用次数</span>
+          <span class="order-term blueGreen">得分率</span>
+          <span class="order-term blueGreen">更新时间</span>
+        </div>
+        <div class="question-list-wrap">
+          <div class="question-item-wrap">
+            <div class="question-item-upper">
+              <span class="question-order">1</span> 【知识点】
+              <span class="question-analyse question-analyse-point">整数，小数复合应用题</span> 【题型】
+              <span class="question-analyse question-analyse-type">单选题</span> 【难度】
+              <span class="question-analyse question-analyse-difficulty">一般</span>
+            </div>
+            <div class="question-item-main">
+              <div class="the-question">把100克糖融化在1000克水中，糖和糖水的比是（　　）</div>
+              <div>
+                <span class="question-option">A．8：1 </span>
+                <span class="question-option">B．1：11 </span>
+                <span class="question-option">C．10：1 </span>
+                <span class="question-option">D．9：1</span>
+              </div>
+            </div>
+            <div class="question-item-below">
+              <div class="question-use-wrap float_left">
+                录入人：<span class="question-use-item question-user-teacher blueGreen">林静怡老师</span> 使用次数：
+                <span class="question-use-item question-user-degree blueGreen">1234次</span> 得分率：
+                <span class="question-use-item question-user-rate blueGreen">60%</span>
+              </div>
+              <div class="question-operation-wrap float_right">
+                <div class="question-operation-item answer-test">
+                  <img src="img/analysisImg.png" alt="" />
+                  <span>答案和解析</span>
+                </div>
+                <div class="question-operation-item">
+                  <img src="img/editImg.png" alt="" />
+                  <span>编辑</span>
+                </div>
+                <div class="question-operation-item">
+                  <img src="img/deleteImg.png" alt="" />
+                  <span>删除</span>
+                </div>
+                <div class="question-operation-item">
+                  <img src="img/collect.png" alt="" />
+                  <span>收藏</span>
+                </div>
+              </div>
+            </div>
+            <!--答案与解析内容-->
+              <div class="answer-analysis-wrap">
+                <div class="answer-content-wrap">答案:<span class="answer-content">A</span></div>
+                <div class="analysis-content-wrap">解析:<span class="analysis-content">25×4÷25×4按照从左到右的顺序计算出结果即可.解：25×4÷25×4=100÷25×4=4×4=16。</span></span></div>
+              </div>
+          </div>
+        </div>
+
+        <div class="question-paging" id="paging-chapter"></div>
+      </div>
+    </div>
+    <div class="pcitem" data-type="chapter"></div>
+    <div class="clear"></div>
+  </div>
+</div>
